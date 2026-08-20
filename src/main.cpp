@@ -3,9 +3,7 @@
 using namespace geode::prelude;
 
 class $modify(BMITextInput, CCTextInputNode) {
-	bool onTextFieldAttachWithIME(cocos2d::CCTextFieldTTF *tField) override {
-		log::info("sus");
-		
-		return false;
-	}
+    void keyboardWillShow(cocos2d::CCIMEKeyboardNotificationInfo& info) override {
+        log::info("keyboardWillShow");
+    }
 };
