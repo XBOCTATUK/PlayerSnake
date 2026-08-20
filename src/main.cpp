@@ -1,9 +1,10 @@
-#include <Geode/modify/CCTextInputNode.hpp>
+#include <Geode/modify/CCIMEDelegate.hpp>
 
 using namespace geode::prelude;
 
-class $modify(BMITextInput, CCTextInputNode) {
-    void keyboardWillShow(cocos2d::CCIMEKeyboardNotificationInfo& info) override {
-        log::info("keyboardWillShow");
+class $modify(MyIMEDelegate, CCIMEDelegate) {
+    bool attachWithIME() {
+        log::info("attachWithIME");
+        return CCIMEDelegate::attachWithIME();
     }
 };
