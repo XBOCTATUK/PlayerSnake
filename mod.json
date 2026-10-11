@@ -20,7 +20,7 @@
             "type": "int",
             "default": 3,
 			"min": 0,
-			"max": 100,
+			"max": 255,
 			"control": {
 				"slider": true
 			}

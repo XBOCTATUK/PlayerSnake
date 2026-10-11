@@ -96,6 +96,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 
         player->m_isPlatformer = source->m_isPlatformer;
         player->m_shipStreakType = ShipStreak::None;
+        if (player->m_shipStreak) {
+            player->m_shipStreak->removeFromParent();
+            player->m_shipStreak = nullptr;
+        }
         player->setTag(FAKE_PLAYER_TAG);
 
         player->setColor(source->m_iconSprite->getColor());
