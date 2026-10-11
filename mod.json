@@ -1,12 +1,44 @@
 {
-	"geode": "5.9.0",
-	"gd": {
-		"android": "2.2081",
-		"ios": "2.2081"
+    "geode": "5.9.0",
+    "gd": {
+        "win": "2.2081",
+        "android": "2.2081",
+        "mac": "2.2081",
+        "ios": "2.2081"
+    },
+    "id": "xboctatuk.player-snake",
+    "name": "Player Snake",
+    "version": "v1.0.0",
+    "developer": "xboctatuk",
+    "description": "This mod adds snake made from player icons.",
+	"dependencies": {
+		"geode.node-ids": ">=v1.23.3"
 	},
-	"id": "xboctatuk.better-mobile-inputs",
-	"name": "Better Mobile Inputs",
-	"version": "v1.0.0",
-	"developer": "xboctatuk",
-	"description": "This mod improves text inputs on mobiles (android/ios)."
+    "settings": {
+        "player-count": {
+            "name": "Player count",
+            "type": "int",
+            "default": 3,
+			"min": 0,
+			"max": 100,
+			"control": {
+				"slider": true
+			}
+        },
+        "player-distance": {
+            "name": "Player distance",
+            "type": "int",
+            "default": 24,
+			"min": 1,
+			"max": 120,
+			"control": {
+				"slider": true
+			}
+        }
+    },
+    "tags": [
+        "offline",
+        "customization",
+        "gameplay"
+    ]
 }

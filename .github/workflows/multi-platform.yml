@@ -12,6 +12,12 @@ jobs:
       fail-fast: false
       matrix:
         config:
+        - name: Windows
+          os: windows-latest
+
+        - name: macOS
+          os: macos-latest
+
         - name: iOS
           os: macos-latest
           target: iOS
@@ -28,11 +34,12 @@ jobs:
     runs-on: ${{ matrix.config.os }}
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
+          # sdk: 'nightly'
           combine: true
           target: ${{ matrix.config.target }}
 
@@ -45,7 +52,7 @@ jobs:
       - uses: geode-sdk/build-geode-mod/combine@main
         id: build
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v4
         with:
           name: Build Output
           path: ${{ steps.build.outputs.build-output }}
