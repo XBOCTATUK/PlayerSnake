@@ -1,6 +1,7 @@
 #include <Geode/modify/PlayLayer.hpp>
 #include "../Settings/Settings.hpp"
 #include "../Utils/PlayerUtils.hpp"
+#include "../Models/PlayerSnake.hpp"
 
 using namespace geode::prelude;
 
@@ -100,7 +101,7 @@ class $modify(MyPlayLayer, PlayLayer) {
             player->m_shipStreak->removeFromParent();
             player->m_shipStreak = nullptr;
         }
-        player->setTag(FAKE_PLAYER_TAG);
+        player->setUserFlag(FAKE_PLAYER_FLAG);
 
         player->setColor(source->m_iconSprite->getColor());
         player->setSecondColor(source->getSecondColor());

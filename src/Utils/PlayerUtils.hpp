@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../Models/PlayerSnake.hpp"
+#include "../Models/PlayerState.hpp"
 
-inline constexpr int FAKE_PLAYER_TAG = 39542684;
+inline constexpr std::string FAKE_PLAYER_FLAG = "ps-fake-player";
 
 namespace Utils {
     inline bool isFakePlayer(PlayerObject* player) {
-        return player->getTag() == FAKE_PLAYER_TAG;
+        return player->getUserFlag(FAKE_PLAYER_FLAG);
     }
 
     inline IconType getPlayerMode(PlayerObject* player) {
