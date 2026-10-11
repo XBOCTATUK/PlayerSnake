@@ -31,10 +31,10 @@ class $modify(MyPlayLayer, PlayLayer) {
         m_fields->m_ticks = 0;
 
         for (auto player : m_fields->m_player1Snake.players) {
-            player->setVisible(false);
+            player->setPosition({ 0.0f, 105.0f });
         }
         for (auto player : m_fields->m_player2Snake.players) {
-            player->setVisible(false);
+            player->setPosition({ 0.0f, 105.0f });
         }
     }
 
