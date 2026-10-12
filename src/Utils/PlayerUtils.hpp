@@ -2,7 +2,7 @@
 
 #include "../Models/PlayerState.hpp"
 
-inline constexpr std::string FAKE_PLAYER_FLAG = "ps-fake-player";
+inline const std::string FAKE_PLAYER_FLAG = "ps-fake-player";
 
 namespace Utils {
     inline bool isFakePlayer(PlayerObject* player) {
