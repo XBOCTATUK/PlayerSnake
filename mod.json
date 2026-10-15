@@ -14,7 +14,17 @@
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3"
 	},
+    "resources": {
+        "sprites": [
+            "resources/*.png"
+        ]
+    },
     "settings": {
+        "enabled": {
+            "name": "Enabled",
+            "type": "bool",
+            "default": true
+        },
         "player-count": {
             "name": "Player count",
             "type": "int",

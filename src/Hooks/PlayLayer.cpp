@@ -8,48 +8,74 @@ using namespace geode::prelude;
 class $modify(MyPlayLayer, PlayLayer) {
     struct Fields {
         int m_ticks = 0;
+        int m_playerCount = 0;
         int m_playerDistance = 0;
 
         PlayerSnake m_player1Snake;
         PlayerSnake m_player2Snake;
+        bool m_isSetupDone = false;
     };
-
-    void setupHasCompleted() {
-        PlayLayer::setupHasCompleted();
-
-        int playerCount = Settings::getPlayerCount();
-        int playerDistance = Settings::getPlayerDistance();
-        if (playerCount <= 0 || playerDistance <= 0) return;
-
-        m_fields->m_playerDistance = playerDistance;
-
-        setupSnake(m_fields->m_player1Snake, m_player1, playerCount, false);
-        setupSnake(m_fields->m_player2Snake, m_player2, playerCount, true);
-    }
 
     void resetLevel() {
         PlayLayer::resetLevel();
-        m_fields->m_ticks = 0;
 
-        for (auto player : m_fields->m_player1Snake.players) {
-            player->setPosition({ 0.0f, 105.0f });
-        }
-        for (auto player : m_fields->m_player2Snake.players) {
-            player->setPosition({ 0.0f, 105.0f });
+        m_fields->m_ticks = 0;
+        rebuildSnakes();
+
+        if (m_fields->m_isSetupDone) {
+            for (auto player : m_fields->m_player1Snake.players) {
+                player->setPosition({ 0.0f, 105.0f });
+                player->setRotation(0.0f);
+            }
+            for (auto player : m_fields->m_player2Snake.players) {
+                player->setPosition({ 0.0f, 105.0f });
+                player->setRotation(0.0f);
+            }
         }
     }
 
     void postUpdate(float dt) {
         PlayLayer::postUpdate(dt);
-
-        if (m_fields->m_player1Snake.players.empty() && m_fields->m_player2Snake.players.empty()) return;
+        if (!m_fields->m_isSetupDone || m_player1->m_isDead || m_player2->m_isDead) return;
 
         updateSnake(m_fields->m_player1Snake, true);
         updateSnake(m_fields->m_player2Snake, m_gameState.m_isDualMode);
         m_fields->m_ticks++;
     }
 
-    void setupSnake(PlayerSnake& snake, PlayerObject* source, int playerCount, bool isSecondPlayer) {
+    void rebuildSnakes() {
+        bool enabled = Settings::getEnabled();
+        if (!m_fields->m_isSetupDone && !enabled) return;
+
+        int playerCount = Settings::getPlayerCount();
+        int playerDistance = Settings::getPlayerDistance();
+
+        bool playerCountChanged = m_fields->m_playerCount != playerCount;
+        bool playerDistanceChanged = m_fields->m_playerDistance != playerDistance;
+        bool shouldDestroySnakes =
+            !enabled ||
+            playerCountChanged || m_fields->m_playerCount <= 0 || 
+            playerDistanceChanged || m_fields->m_playerDistance <= 0;
+
+        if (m_fields->m_isSetupDone && shouldDestroySnakes) {
+            destroySnake(m_fields->m_player1Snake);
+            destroySnake(m_fields->m_player2Snake);
+
+            m_fields->m_isSetupDone = false;
+        }
+
+        if (!m_fields->m_isSetupDone && enabled) {
+            m_fields->m_playerCount = playerCount;
+            m_fields->m_playerDistance = playerDistance;
+
+            buildSnake(m_fields->m_player1Snake, m_player1, playerCount, false);
+            buildSnake(m_fields->m_player2Snake, m_player2, playerCount, true);
+
+            m_fields->m_isSetupDone = true;
+        }
+    }
+
+    void buildSnake(PlayerSnake& snake, PlayerObject* source, int playerCount, bool isSecondPlayer) {
         if (!source) return;
 
         snake.source = source;
@@ -62,6 +88,17 @@ class $modify(MyPlayLayer, PlayLayer) {
         }
 
         snake.displayedStates.resize(snake.players.size());
+    }
+
+    void destroySnake(PlayerSnake& snake) {
+        for (auto& player : snake.players) {
+            player->removeFromParent();
+        }
+
+        snake.players.clear();
+        snake.displayedStates.clear();
+        snake.history.clear();
+        snake.source = nullptr;
     }
 
     void updateSnake(PlayerSnake& snake, bool isActive) {
