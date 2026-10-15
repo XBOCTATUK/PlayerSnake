@@ -50,16 +50,16 @@ namespace Utils {
         auto gm = GameManager::get();
 
         player->toggleFlyMode(false, true);
-        player->toggleRollMode(false, false);
-        player->toggleBirdMode(false, false);
-        player->toggleDartMode(false, false);
-        player->toggleRobotMode(false, false);
-        player->toggleSpiderMode(false, false);
-        player->toggleSwingMode(false, false);
+        player->toggleRollMode(false, true);
+        player->toggleBirdMode(false, true);
+        player->toggleDartMode(false, true);
+        player->toggleRobotMode(false, true);
+        player->toggleSpiderMode(false, true);
+        player->toggleSwingMode(false, true);
 
         switch (mode) {
             case IconType::Ship:
-                player->toggleFlyMode(true, false);
+                player->toggleFlyMode(true, true);
                 player->updatePlayerShipFrame(gm->getPlayerShip());
                 break;
             case IconType::Jetpack:
@@ -67,27 +67,27 @@ namespace Utils {
                 player->updatePlayerJetpackFrame(gm->getPlayerJetpack());
                 break;
             case IconType::Ball:
-                player->toggleRollMode(true, false);
+                player->toggleRollMode(true, true);
                 player->updatePlayerRollFrame(gm->getPlayerBall());
                 break;
             case IconType::Ufo:
-                player->toggleBirdMode(true, false);
+                player->toggleBirdMode(true, true);
                 player->updatePlayerBirdFrame(gm->getPlayerBird());
                 break;
             case IconType::Wave:
-                player->toggleDartMode(true, false);
+                player->toggleDartMode(true, true);
                 player->updatePlayerDartFrame(gm->getPlayerDart());
                 break;
             case IconType::Robot:
-                player->toggleRobotMode(true, false);
+                player->toggleRobotMode(true, true);
                 player->updatePlayerRobotFrame(gm->getPlayerRobot());
                 break;
             case IconType::Spider:
-                player->toggleSpiderMode(true, false);
+                player->toggleSpiderMode(true, true);
                 player->updatePlayerSpiderFrame(gm->getPlayerSpider());
                 break;
             case IconType::Swing:
-                player->toggleSwingMode(true, false);
+                player->toggleSwingMode(true, true);
                 player->updatePlayerSwingFrame(gm->getPlayerSwing());
                 break;
             default:

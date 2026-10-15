@@ -36,7 +36,10 @@ class $modify(MyPlayLayer, PlayLayer) {
 
     void postUpdate(float dt) {
         PlayLayer::postUpdate(dt);
-        if (!m_fields->m_isSetupDone || m_player1->m_isDead || m_player2->m_isDead) return;
+
+        bool somePlayerIsDead = m_player1->m_isDead || m_player2->m_isDead;
+        bool shouldStopSnake = somePlayerIsDead && Settings::getStopSnakeOnDeath();
+        if (!m_fields->m_isSetupDone || shouldStopSnake) return;
 
         updateSnake(m_fields->m_player1Snake, true);
         updateSnake(m_fields->m_player2Snake, m_gameState.m_isDualMode);
@@ -82,10 +85,12 @@ class $modify(MyPlayLayer, PlayLayer) {
         snake.history.resize(m_fields->m_playerDistance * playerCount + 1);
 
         for (int i = 0; i < playerCount; i++) {
-            if (auto player = createFakePlayer(source, i, isSecondPlayer)) {
+            if (auto player = createFakePlayer(source)) {
+                player->setID(fmt::format("fake-player-{}-{}"_spr, isSecondPlayer ? 2 : 1, playerCount - i));
                 snake.players.push_back(player);
             }
         }
+        std::reverse(snake.players.begin(), snake.players.end());
 
         snake.displayedStates.resize(snake.players.size());
     }
@@ -124,7 +129,7 @@ class $modify(MyPlayLayer, PlayLayer) {
         }
     }
 
-    PlayerObject* createFakePlayer(PlayerObject* source, int index, bool isSecondPlayer) {
+    PlayerObject* createFakePlayer(PlayerObject* source) {
         auto gm = GameManager::get();
 
         auto player = PlayerObject::create(
@@ -155,14 +160,8 @@ class $modify(MyPlayLayer, PlayLayer) {
 
         player->setPosition(source->getPosition());
         player->setVisible(false);
-        player->setID(fmt::format("fake-player-{}-{}"_spr, isSecondPlayer ? 2 : 1, index + 1));
 
-        auto parent =
-            source->getParent()
-            ? source->getParent()
-            : static_cast<CCNode*>(m_objectLayer);
-
-        parent->addChild(player, source->getZOrder() - 1);
+        m_objectLayer->addChild(player, source->getZOrder() - 1);
 
         return player;
     }

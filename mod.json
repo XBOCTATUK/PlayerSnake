@@ -8,7 +8,7 @@
     },
     "id": "xboctatuk.player-snake",
     "name": "Player Snake",
-    "version": "v1.0.0",
+    "version": "v1.1.0",
     "developer": "xboctatuk",
     "description": "This mod adds snake made from player icons.",
 	"dependencies": {
@@ -26,7 +26,7 @@
             "default": true
         },
         "player-count": {
-            "name": "Player count",
+            "name": "Icon count",
             "type": "int",
             "default": 3,
 			"min": 0,
@@ -36,7 +36,7 @@
 			}
         },
         "player-distance": {
-            "name": "Player distance",
+            "name": "Distance between icons",
             "type": "int",
             "default": 24,
 			"min": 1,
@@ -44,6 +44,11 @@
 			"control": {
 				"slider": true
 			}
+        },
+        "stop-snake-on-death": {
+            "name": "Stop snake on death",
+            "type": "bool",
+            "default": true
         }
     },
     "tags": [

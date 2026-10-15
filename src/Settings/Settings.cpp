@@ -6,6 +6,7 @@ namespace Settings {
     static bool g_enabled = Mod::get()->getSettingValue<bool>("enabled");
     static int g_playerCount = Mod::get()->getSettingValue<int>("player-count");
     static int g_playerDistance = Mod::get()->getSettingValue<int>("player-distance");
+    static bool g_stopSnakeOnDeath = Mod::get()->getSettingValue<bool>("stop-snake-on-death");
 
     bool getEnabled() {
         return g_enabled;
@@ -17,6 +18,10 @@ namespace Settings {
 
     int getPlayerDistance() {
         return g_playerDistance;
+    }
+
+    bool getStopSnakeOnDeath() {
+        return g_stopSnakeOnDeath;
     }
 };
 
@@ -31,5 +36,9 @@ $on_mod(Loaded) {
 
     listenForSettingChanges<int>("player-distance", [](int value) {
         Settings::g_playerDistance = value;
+    });
+
+    listenForSettingChanges<bool>("stop-snake-on-death", [](bool value) {
+        Settings::g_stopSnakeOnDeath = value;
     });
 }
