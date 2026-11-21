@@ -1,3 +1,7 @@
+# 1.1.1
+Changes:
+- <cg>2.2091 support</cg>
+
 # 1.1.0
 Changes:
 - <cg>Added</c> a quick settings button to the pause menu
