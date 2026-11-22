@@ -6,7 +6,7 @@ class $modify(MyPauseLayer, PauseLayer) {
     void customSetup() {
         PauseLayer::customSetup();
 
-        auto rightMenu = getChildByID("right-button-menu");
+        auto rightMenu = m_mainLayer->getChildByID("right-button-menu");
         if (!rightMenu) return;
 
         auto spr = CCSprite::create("logo.png"_spr);
