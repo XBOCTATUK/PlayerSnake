@@ -1,6 +1,6 @@
 # 1.1.1
 Changes:
-- <cg>2.2091 support</cg>
+- <cg>2.2091 support</cg> (temporary w/o ios support)
 
 # 1.1.0
 Changes:
