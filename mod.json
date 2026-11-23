@@ -8,7 +8,7 @@
 	},
     "id": "xboctatuk.player-snake",
     "name": "Player Snake",
-    "version": "v1.1.1",
+    "version": "v1.1.2",
     "developer": "xboctatuk",
     "description": "This mod adds snake made from player icons.",
 	"dependencies": {

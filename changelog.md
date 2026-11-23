@@ -1,3 +1,7 @@
+# 1.1.2
+Changes:
+- <co>Restored iOS support</c>
+
 # 1.1.1
 Changes:
 - <cg>2.2091 support</cg> (temporary w/o ios support)
